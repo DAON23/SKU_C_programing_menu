@@ -22,6 +22,7 @@ void Veiw_cart(Cart* cart, Menu_item menu[]); //장바구니 출력
 void Del_cart(Cart* cart, int choice); //장바구니 취소
 void Add_receipt(Cart* cart, Menu_item menu[]); //영수증 입력
 void Initialization_receipt(int price); //영수증 초기화
+void Total_amount(void); //영수증에 출력할 총액
 
 int main(void) //메인함수
 {
@@ -47,7 +48,10 @@ int main(void) //메인함수
 			printf("음식을 선택하세요: ");
 			scanf("%d", &ans);
 
-			Add_cart(menu, &cart, ans - 1);
+			if (ans == 1 || ans == 2)
+				Add_cart(menu, &cart, ans - 1);
+			else
+				printf("번호에 있는 메뉴만 선택해주세요.\n\n");
 
 			break;
 
@@ -58,7 +62,10 @@ int main(void) //메인함수
 			printf("후식을 선택하세요: ");
 			scanf("%d", &ans);
 
-			Add_cart(menu, &cart, ans + 1);
+			if (ans == 1 || ans == 2)
+				Add_cart(menu, &cart, ans + 1);
+			else
+				printf("번호에 있는 메뉴만 선택해주세요.\n\n");
 
 			break;
 
@@ -69,7 +76,10 @@ int main(void) //메인함수
 			printf("안주를 선택하세요: ");
 			scanf("%d", &ans);
 
-			Add_cart(menu, &cart, ans + 3);
+			if (ans == 1 || ans == 2)
+				Add_cart(menu, &cart, ans + 3);
+			else
+				printf("번호에 있는 메뉴만 선택해주세요.\n\n");
 
 			break;
 
@@ -80,7 +90,10 @@ int main(void) //메인함수
 			printf("음료를 선택하시오: ");
 			scanf("%d", &ans);
 
-			Add_cart(menu, &cart, ans + 5);
+			if (ans == 1 || ans == 2)
+				Add_cart(menu, &cart, ans + 5);
+			else
+				printf("번호에 있는 메뉴만 선택해주세요\n\n");
 
 			break;
 
@@ -88,14 +101,20 @@ int main(void) //메인함수
 			printf("\b직원이 호출되었습니다.\n");
 
 			break;
+
 		case 6:
 			Veiw_cart(&cart, menu);
 			
-			printf("메뉴를 취소하려면 메뉴 번호를 입력하세요(음수는 취소, 0을 누르지 마세요): ");
+			printf("메뉴를 취소하려면 메뉴 번호를 입력하세요(메뉴에 없는 번호를 입력하면 취소, 0을 누르지 마세요): ");
 			scanf("%d", &ans);
 			
-			if(ans >= 0)
+			if (ans >= 1 && ans <= cart.item_count) {
 				Del_cart(&cart, menu, ans);
+
+				printf("%d번 메뉴가 취소되었습니다.\n\n", ans);
+			}
+			else
+				printf("\n");
 			
 			break;
 
@@ -109,6 +128,8 @@ int main(void) //메인함수
 
 		case 0:
 			printf("종료 되었습니다. 영수증을 확인하세요.\n");
+
+			Total_amount();
 
 			break;
 
@@ -192,16 +213,22 @@ void Del_cart(Cart* cart, Menu_item menu[], int choice) //장바구니 메뉴 취소
 
 	if (0 <= choice < cart->item_count) {
 		cart->total_price -= cart->items[choice].price; //장바구니 안에 있는 가격의 총액에서 취소한 메뉴의 가격 빼기
-		cart->items[choice] = cart->items[choice + 1]; //한칸 씩 앞으로 당김으로서 선택한 메뉴 삭제
+		cart->items[choice] = cart->items[choice + 1];//한칸 씩 앞으로 당김으로서 선택한 메뉴 삭제
 	}
 
 	cart->item_count--;
+
+	if (cart->item_count == 0)
+		cart->total_price = 0;
 }
 
 void Initialization_receipt(int price) //영수증 초기화
 {
 	price = 0; //전에 주문한 음식의 총액을 초기화
 	FILE* fp = fopen("영수증.txt", "w+"); //w로 열어서 기존에 있던 내용 초기화
+
+	if (fp == NULL)
+		printf("에러!\n");
 
 	fprintf(fp, "영수증\n\n"); //내용 초기화를 위해 적음
 
@@ -220,7 +247,17 @@ void Add_receipt(Cart* cart, Menu_item menu[]) //영수증 입력(수정)
 		price += cart->items[i].price; //지금까지 주문한 음식의 총액
 	}
 	
-	fprintf(fp, "\n총액: %d원\n\n", price);
-	
+	fclose(fp);
+}
+
+void Total_amount(void)
+{
+	FILE* fp = fopen("영수증.txt", "a+");
+
+	if (fp == NULL)
+		printf("에러!\n");
+
+	fprintf(fp, "\n총액: %d원\n", price);
+
 	fclose(fp);
 }
