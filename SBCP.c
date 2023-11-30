@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <string.h>
 
-typedef struct { //¸Ş´º ÀÌ¸§ ¹× °¡°İ ±¸Á¶Ã¼
+typedef struct { //ë©”ë‰´ ì´ë¦„ ë° ê°€ê²© êµ¬ì¡°ì²´
 	char name[50];
 	int price;
 }Menu_item;
 
-typedef struct { //Àå¹Ù±¸´Ï ±¸Á¶Ã¼
+typedef struct { //ì¥ë°”êµ¬ë‹ˆ êµ¬ì¡°ì²´
 	Menu_item items[50];
 	int item_count;
 	int total_price;
@@ -14,104 +14,104 @@ typedef struct { //Àå¹Ù±¸´Ï ±¸Á¶Ã¼
 
 int price;
 
-void Main_menu(void); //¸ŞÀÎ¸Ş´º Ãâ·Â
-void Food_menu(Menu_item menu[]); //À½½Ä¸Ş´º
-void Initialization_cart(Cart* cart); //Àå¹Ù±¸´Ï ÃÊ±âÈ­
-void Add_cart(Menu_item menu[], Cart* cart, int choice); //Àå¹Ù±¸´Ï¿¡ À½½Ä Ãß°¡
-void Veiw_cart(Cart* cart, Menu_item menu[]); //Àå¹Ù±¸´Ï Ãâ·Â
-void Del_cart(Cart* cart, int choice); //Àå¹Ù±¸´Ï Ãë¼Ò
-void Add_receipt(Cart* cart, Menu_item menu[]); //¿µ¼öÁõ ÀÔ·Â
-void Initialization_receipt(int price); //¿µ¼öÁõ ÃÊ±âÈ­
-void Total_amount(void); //¿µ¼öÁõ¿¡ Ãâ·ÂÇÒ ÃÑ¾×
+void Main_menu(void); //ë©”ì¸ë©”ë‰´ ì¶œë ¥
+void Food_menu(Menu_item menu[]); //ìŒì‹ë©”ë‰´
+void Initialization_cart(Cart* cart); //ì¥ë°”êµ¬ë‹ˆ ì´ˆê¸°í™”
+void Add_cart(Menu_item menu[], Cart* cart, int choice); //ì¥ë°”êµ¬ë‹ˆì— ìŒì‹ ì¶”ê°€
+void Veiw_cart(Cart* cart, Menu_item menu[]); //ì¥ë°”êµ¬ë‹ˆ ì¶œë ¥
+void Del_cart(Cart* cart, int choice); //ì¥ë°”êµ¬ë‹ˆ ì·¨ì†Œ
+void Add_receipt(Cart* cart, Menu_item menu[]); //ì˜ìˆ˜ì¦ ì…ë ¥
+void Initialization_receipt(int price); //ì˜ìˆ˜ì¦ ì´ˆê¸°í™”
+void Total_amount(void); //ì˜ìˆ˜ì¦ì— ì¶œë ¥í•  ì´ì•¡
 
-int main(void) //¸ŞÀÎÇÔ¼ö
+int main(void) //ë©”ì¸í•¨ìˆ˜
 {
 	int ans;
 	char edit;
 	Menu_item menu[8];
 	Cart cart;
 
-	Food_menu(menu); //¸Ş´º ÃÊ±âÈ­
-	Initialization_cart(&cart); //Àå¹Ù±¸´Ï ÃÊ±âÈ­
-	Initialization_receipt(price); //¿µ¼öÁõ ÃÊ±âÈ­
+	Food_menu(menu); //ë©”ë‰´ ì´ˆê¸°í™”
+	Initialization_cart(&cart); //ì¥ë°”êµ¬ë‹ˆ ì´ˆê¸°í™”
+	Initialization_receipt(price); //ì˜ìˆ˜ì¦ ì´ˆê¸°í™”
 
 	do {
-		Main_menu(); //¸ŞÀÎ¸Ş´º Ãâ·Â
-		printf("¼±ÅÃ: ");
+		Main_menu(); //ë©”ì¸ë©”ë‰´ ì¶œë ¥
+		printf("ì„ íƒ: ");
 		scanf("%d", &ans);
 
 		switch (ans) {
 		case 1:
 			for (int i = 0; i < 2; i++)
-				printf("%d. %s - %d¿ø\n", i + 1, menu[i].name, menu[i].price);
+				printf("%d. %s - %dì›\n", i + 1, menu[i].name, menu[i].price);
 
-			printf("À½½ÄÀ» ¼±ÅÃÇÏ¼¼¿ä: ");
+			printf("ìŒì‹ì„ ì„ íƒí•˜ì„¸ìš”: ");
 			scanf("%d", &ans);
 
 			if (ans == 1 || ans == 2)
 				Add_cart(menu, &cart, ans - 1);
 			else
-				printf("¹øÈ£¿¡ ÀÖ´Â ¸Ş´º¸¸ ¼±ÅÃÇØÁÖ¼¼¿ä.\n\n");
+				printf("ë²ˆí˜¸ì— ìˆëŠ” ë©”ë‰´ë§Œ ì„ íƒí•´ì£¼ì„¸ìš”.\n\n");
 
 			break;
 
 		case 2:
 			for (int i = 2; i < 4; i++)
-				printf("%d. %s - %d¿ø\n", i - 1, menu[i].name, menu[i].price);
+				printf("%d. %s - %dì›\n", i - 1, menu[i].name, menu[i].price);
 
-			printf("ÈÄ½ÄÀ» ¼±ÅÃÇÏ¼¼¿ä: ");
+			printf("í›„ì‹ì„ ì„ íƒí•˜ì„¸ìš”: ");
 			scanf("%d", &ans);
 
 			if (ans == 1 || ans == 2)
 				Add_cart(menu, &cart, ans + 1);
 			else
-				printf("¹øÈ£¿¡ ÀÖ´Â ¸Ş´º¸¸ ¼±ÅÃÇØÁÖ¼¼¿ä.\n\n");
+				printf("ë²ˆí˜¸ì— ìˆëŠ” ë©”ë‰´ë§Œ ì„ íƒí•´ì£¼ì„¸ìš”.\n\n");
 
 			break;
 
 		case 3:
 			for (int i = 4; i < 6; i++)
-				printf("%d. %s - %d¿ø\n", i - 3, menu[i].name, menu[i].price);
+				printf("%d. %s - %dì›\n", i - 3, menu[i].name, menu[i].price);
 
-			printf("¾ÈÁÖ¸¦ ¼±ÅÃÇÏ¼¼¿ä: ");
+			printf("ì•ˆì£¼ë¥¼ ì„ íƒí•˜ì„¸ìš”: ");
 			scanf("%d", &ans);
 
 			if (ans == 1 || ans == 2)
 				Add_cart(menu, &cart, ans + 3);
 			else
-				printf("¹øÈ£¿¡ ÀÖ´Â ¸Ş´º¸¸ ¼±ÅÃÇØÁÖ¼¼¿ä.\n\n");
+				printf("ë²ˆí˜¸ì— ìˆëŠ” ë©”ë‰´ë§Œ ì„ íƒí•´ì£¼ì„¸ìš”.\n\n");
 
 			break;
 
 		case 4:
 			for (int i = 6; i < 8; i++)
-				printf("%d. %s - %d¿ø\n", i - 5, menu[i].name, menu[i].price);
+				printf("%d. %s - %dì›\n", i - 5, menu[i].name, menu[i].price);
 
-			printf("À½·á¸¦ ¼±ÅÃÇÏ½Ã¿À: ");
+			printf("ìŒë£Œë¥¼ ì„ íƒí•˜ì‹œì˜¤: ");
 			scanf("%d", &ans);
 
 			if (ans == 1 || ans == 2)
 				Add_cart(menu, &cart, ans + 5);
 			else
-				printf("¹øÈ£¿¡ ÀÖ´Â ¸Ş´º¸¸ ¼±ÅÃÇØÁÖ¼¼¿ä\n\n");
+				printf("ë²ˆí˜¸ì— ìˆëŠ” ë©”ë‰´ë§Œ ì„ íƒí•´ì£¼ì„¸ìš”\n\n");
 
 			break;
 
 		case 5:
-			printf("\bÁ÷¿øÀÌ È£ÃâµÇ¾ú½À´Ï´Ù.\n");
+			printf("\bì§ì›ì´ í˜¸ì¶œë˜ì—ˆìŠµë‹ˆë‹¤.\n");
 
 			break;
 
 		case 6:
 			Veiw_cart(&cart, menu);
 
-			printf("¸Ş´º¸¦ Ãë¼ÒÇÏ·Á¸é ¸Ş´º ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä(¸Ş´º¿¡ ¾ø´Â ¹øÈ£¸¦ ÀÔ·ÂÇÏ¸é Ãë¼Ò, 0À» ´©¸£Áö ¸¶¼¼¿ä): ");
+			printf("ë©”ë‰´ë¥¼ ì·¨ì†Œí•˜ë ¤ë©´ ë©”ë‰´ ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”(ë©”ë‰´ì— ì—†ëŠ” ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ë©´ ì·¨ì†Œ, 0ì„ ëˆ„ë¥´ì§€ ë§ˆì„¸ìš”): ");
 			scanf("%d", &ans);
 
 			if (ans >= 1 && ans <= cart.item_count) {
 				Del_cart(&cart, menu, ans);
 
-				printf("%d¹ø ¸Ş´º°¡ Ãë¼ÒµÇ¾ú½À´Ï´Ù.\n\n", ans);
+				printf("%dë²ˆ ë©”ë‰´ê°€ ì·¨ì†Œë˜ì—ˆìŠµë‹ˆë‹¤.\n\n", ans);
 			}
 			else
 				printf("\n");
@@ -119,7 +119,7 @@ int main(void) //¸ŞÀÎÇÔ¼ö
 			break;
 
 		case 7:
-			printf("ÁÖ¹®ÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.\n\n");
+			printf("ì£¼ë¬¸ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.\n\n");
 
 			Add_receipt(&cart, menu);
 			Initialization_cart(&cart);
@@ -127,14 +127,14 @@ int main(void) //¸ŞÀÎÇÔ¼ö
 			break;
 
 		case 0:
-			printf("Á¾·á µÇ¾ú½À´Ï´Ù. ¿µ¼öÁõÀ» È®ÀÎÇÏ¼¼¿ä.\n");
+			printf("ì¢…ë£Œ ë˜ì—ˆìŠµë‹ˆë‹¤. ì˜ìˆ˜ì¦ì„ í™•ì¸í•˜ì„¸ìš”.\n");
 
 			Total_amount();
 
 			break;
 
 		default:
-			printf("0ºÎÅÍ 7»çÀÌÀÇ ¼ıÀÚ·Î ÀÔ·ÂÇØÁÖ¼¼¿ä\n\n");
+			printf("0ë¶€í„° 7ì‚¬ì´ì˜ ìˆ«ìë¡œ ì…ë ¥í•´ì£¼ì„¸ìš”\n\n");
 
 			break;
 		}
@@ -143,77 +143,77 @@ int main(void) //¸ŞÀÎÇÔ¼ö
 	return 0;
 }
 
-void Main_menu(void) //Ã¹ È­¸é
+void Main_menu(void) //ì²« í™”ë©´
 {
 	printf("========================\n");
-	printf("       ¶óµğ¿¡ÀÌÅÍ       \n");
+	printf("       ë¼ë””ì—ì´í„°       \n");
 	printf("========================\n");
-	printf("1. ½Ä»ç\n");
-	printf("2. ÈÄ½Ä\n");
-	printf("3. ¾ÈÁÖ\n");
-	printf("4. À½·á\n");
-	printf("5. Á÷¿øÈ£Ãâ\n");
-	printf("6. Àå¹Ù±¸´Ï\n");
-	printf("7. ÁÖ¹®\n");
-	printf("0. Á¾·á\n");
+	printf("1. ì‹ì‚¬\n");
+	printf("2. í›„ì‹\n");
+	printf("3. ì•ˆì£¼\n");
+	printf("4. ìŒë£Œ\n");
+	printf("5. ì§ì›í˜¸ì¶œ\n");
+	printf("6. ì¥ë°”êµ¬ë‹ˆ\n");
+	printf("7. ì£¼ë¬¸\n");
+	printf("0. ì¢…ë£Œ\n");
 }
 
-void Food_menu(Menu_item menu[]) //À½½Ä ¸Ş´º
+void Food_menu(Menu_item menu[]) //ìŒì‹ ë©”ë‰´
 {
-	strcpy(menu[0].name, "¼øµÎºÎÂî°³");
+	strcpy(menu[0].name, "ìˆœë‘ë¶€ì°Œê°œ");
 	menu[0].price = 8000;
-	strcpy(menu[1].name, "Á¦À°ººÀ½");
+	strcpy(menu[1].name, "ì œìœ¡ë³¶ìŒ");
 	menu[1].price = 5000;
-	strcpy(menu[2].name, "°úÀÏ¸ğµë");
+	strcpy(menu[2].name, "ê³¼ì¼ëª¨ë“¬");
 	menu[2].price = 10000;
-	strcpy(menu[3].name, "Á¶°¢ÄÉÀÌÅ©");
+	strcpy(menu[3].name, "ì¡°ê°ì¼€ì´í¬");
 	menu[3].price = 4000;
-	strcpy(menu[4].name, "ÇØ¹°ÆÄÀü");
+	strcpy(menu[4].name, "í•´ë¬¼íŒŒì „");
 	menu[4].price = 6000;
-	strcpy(menu[5].name, "¾î¹¬ÅÁ");
+	strcpy(menu[5].name, "ì–´ë¬µíƒ•");
 	menu[5].price = 11000;
-	strcpy(menu[6].name, "¼ÒÁÖ(ÂüÀÌ½½)");
+	strcpy(menu[6].name, "ì†Œì£¼(ì°¸ì´ìŠ¬)");
 	menu[6].price = 3000;
-	strcpy(menu[7].name, "»ı¸ÆÁÖ 1L");
+	strcpy(menu[7].name, "ìƒë§¥ì£¼ 1L");
 	menu[7].price = 3000;
 }
 
-void Initialization_cart(Cart* cart) //Àå¹Ù±¸´ÏÀÇ ¾ÆÀÌÅÛ °¹¼ö¿Í ÃÑÇÕ °¡°İÀ» ÃÊ±âÈ­
+void Initialization_cart(Cart* cart) //ì¥ë°”êµ¬ë‹ˆì˜ ì•„ì´í…œ ê°¯ìˆ˜ì™€ ì´í•© ê°€ê²©ì„ ì´ˆê¸°í™”
 {
 	cart->item_count = 0;
 	cart->total_price = 0;
 }
 
-void Add_cart(Menu_item menu[], Cart* cart, int choice) //Àå¹Ù±¸´Ï¿¡ ¸Ş´º Ãß°¡
+void Add_cart(Menu_item menu[], Cart* cart, int choice) //ì¥ë°”êµ¬ë‹ˆì— ë©”ë‰´ ì¶”ê°€
 {
 	if (cart->item_count < 50) {
 		cart->items[cart->item_count] = menu[choice];
 		cart->total_price += menu[choice].price;
 		cart->item_count++;
 
-		printf("%s¸¦ Àå¹Ù±¸´Ï Ãß°¡Çß½À´Ï´Ù.\n\n", menu[choice].name);
+		printf("%së¥¼ ì¥ë°”êµ¬ë‹ˆ ì¶”ê°€í–ˆìŠµë‹ˆë‹¤.\n\n", menu[choice].name);
 	}
 	else
-		printf("Àå¹Ù±¸´Ï°¡ °¡µæ Ã¡½À´Ï´Ù.\n\n");
+		printf("ì¥ë°”êµ¬ë‹ˆê°€ ê°€ë“ ì°¼ìŠµë‹ˆë‹¤.\n\n");
 }
 
-void Veiw_cart(Cart* cart, Menu_item menu[]) //Àå¹Ù±¸´Ï ¸Ş´º Ãâ·Â
+void Veiw_cart(Cart* cart, Menu_item menu[]) //ì¥ë°”êµ¬ë‹ˆ ë©”ë‰´ ì¶œë ¥
 {
-	printf("\nÀå¹Ù±¸´Ï\n");
+	printf("\nì¥ë°”êµ¬ë‹ˆ\n");
 
 	for (int i = 0; i < cart->item_count; i++)
-		printf("%d. %s - %d¿ø\n", i + 1, cart->items[i].name, cart->items[i].price);
+		printf("%d. %s - %dì›\n", i + 1, cart->items[i].name, cart->items[i].price);
 
-	printf("ÃÑ °¡°İ: %d¿ø\n\n", cart->total_price);
+	printf("ì´ ê°€ê²©: %dì›\n\n", cart->total_price);
 }
 
-void Del_cart(Cart* cart, Menu_item menu[], int choice) //Àå¹Ù±¸´Ï ¸Ş´º Ãë¼Ò
+void Del_cart(Cart* cart, Menu_item menu[], int choice) //ì¥ë°”êµ¬ë‹ˆ ë©”ë‰´ ì·¨ì†Œ
 {
 	choice--;
 
 	if (0 <= choice < cart->item_count) {
-		cart->total_price -= cart->items[choice].price; //Àå¹Ù±¸´Ï ¾È¿¡ ÀÖ´Â °¡°İÀÇ ÃÑ¾×¿¡¼­ Ãë¼ÒÇÑ ¸Ş´ºÀÇ °¡°İ »©±â
-		cart->items[choice] = cart->items[choice + 1];//ÇÑÄ­ ¾¿ ¾ÕÀ¸·Î ´ç±èÀ¸·Î¼­ ¼±ÅÃÇÑ ¸Ş´º »èÁ¦
+		cart->total_price -= cart->items[choice].price; //ì¥ë°”êµ¬ë‹ˆ ì•ˆì— ìˆëŠ” ê°€ê²©ì˜ ì´ì•¡ì—ì„œ ì·¨ì†Œí•œ ë©”ë‰´ì˜ ê°€ê²© ë¹¼ê¸°
+		cart->items[choice] = cart->items[choice + 1];//í•œì¹¸ ì”© ì•ìœ¼ë¡œ ë‹¹ê¹€ìœ¼ë¡œì„œ ì„ íƒí•œ ë©”ë‰´ ì‚­ì œ
 	}
 
 	cart->item_count--;
@@ -222,52 +222,52 @@ void Del_cart(Cart* cart, Menu_item menu[], int choice) //Àå¹Ù±¸´Ï ¸Ş´º Ãë¼Ò
 		cart->total_price = 0;
 }
 
-void Initialization_receipt(int price) //¿µ¼öÁõ ÃÊ±âÈ­
+void Initialization_receipt(int price) //ì˜ìˆ˜ì¦ ì´ˆê¸°í™”
 {
-	price = 0; //Àü¿¡ ÁÖ¹®ÇÑ À½½ÄÀÇ ÃÑ¾×À» ÃÊ±âÈ­
-	FILE* fp = fopen("¿µ¼öÁõ.txt", "w+"); //w·Î ¿­¾î¼­ ±âÁ¸¿¡ ÀÖ´ø ³»¿ë ÃÊ±âÈ­
+	price = 0; //ì „ì— ì£¼ë¬¸í•œ ìŒì‹ì˜ ì´ì•¡ì„ ì´ˆê¸°í™”
+	FILE* fp = fopen("ì˜ìˆ˜ì¦.txt", "w+"); //wë¡œ ì—´ì–´ì„œ ê¸°ì¡´ì— ìˆë˜ ë‚´ìš© ì´ˆê¸°í™”
 
 	if (fp == NULL)
-		printf("¿¡·¯!\n");
+		printf("ì—ëŸ¬!\n");
 
-	fprintf(fp, "¿µ¼öÁõ\n\n"); //³»¿ë ÃÊ±âÈ­¸¦ À§ÇØ ÀûÀ½
+	fprintf(fp, "ì˜ìˆ˜ì¦\n\n"); //ë‚´ìš© ì´ˆê¸°í™”ë¥¼ ìœ„í•´ ì ìŒ
 
 	fclose(fp);
 }
 
-void Add_receipt(Cart* cart, Menu_item menu[]) {
-	FILE* fp = fopen("¿µ¼öÁõ.txt", "w"); //w·Î ¿­¾î¼­ ±âÁ¸¿¡ ÀÖ´ø ³»¿ë ÃÊ±âÈ­
+void Add_receipt(Cart* cart, Menu_item menu[]) { //ì˜ìˆ˜ì¦ ì…ë ¥(ì¶”ê°€)
+	FILE* fp = fopen("ì˜ìˆ˜ì¦.txt", "w"); //wë¡œ ì—´ì–´ì„œ ê¸°ì¡´ì— ìˆë˜ ë‚´ìš© ì´ˆê¸°í™”
 
 	if (fp == NULL)
-		printf("¿¡·¯!\n");
+		printf("ì—ëŸ¬!\n");
 
-	fprintf(fp, "              ¿µ¼öÁõ\n\n");
+	fprintf(fp, "              ì˜ìˆ˜ì¦\n\n");
 	fprintf(fp, "==================================\n");
-	fprintf(fp, "»óÇ°          ´Ü°¡   ¼ö·®   ±İ¾×\n"); // »óÇ°, ´Ü°¡, ¼ö·®, ±İ¾× Çì´õ Ãß°¡
+	fprintf(fp, "ìƒí’ˆ          ë‹¨ê°€   ìˆ˜ëŸ‰   ê¸ˆì•¡\n"); // ìƒí’ˆ, ë‹¨ê°€, ìˆ˜ëŸ‰, ê¸ˆì•¡ í—¤ë” ì¶”ê°€
 	fprintf(fp, "----------------------------------\n");
 	for (int i = 0; i < cart->item_count; i++) {
 		char buf[100];
 		sprintf(buf, "%-15s%-7d%-6d%-7d\n", cart->items[i].name, cart->items[i].price, 1, cart->items[i].price);
 		fprintf(fp, buf);
-		price += cart->items[i].price; //Áö±İ±îÁö ÁÖ¹®ÇÑ À½½ÄÀÇ ÃÑ¾×
+		price += cart->items[i].price; //ì§€ê¸ˆê¹Œì§€ ì£¼ë¬¸í•œ ìŒì‹ì˜ ì´ì•¡
 	}
 	fprintf(fp, "----------------------------------\n");
 	fclose(fp);
 }
 
-void Total_amount(void)
+void Total_amount(void) //ì˜ìˆ˜ì¦ì— ì¶œë ¥í•  ê°€ê²©
 {
-	FILE* fp = fopen("¿µ¼öÁõ.txt", "a+");
+	FILE* fp = fopen("ì˜ìˆ˜ì¦.txt", "a+");
 
 	if (fp == NULL)
-		printf("¿¡·¯!\n");
+		printf("ì—ëŸ¬!\n");
 
-	int tax = price * 0.1; // ºÎ°¡¼¼ °è»ê
-	int taxable = price - tax; // °ú¼¼»óÇ°±İ¾× °è»ê
+	int tax = price * 0.1; // ë¶€ê°€ì„¸ ê³„ì‚°
+	int taxable = price - tax; // ê³¼ì„¸ìƒí’ˆê¸ˆì•¡ ê³„ì‚°
 
-	fprintf(fp, "°ø±Ş°¡%25d¿ø\n", taxable);
-	fprintf(fp, "ºÎ°¡¼¼%25d¿ø\n", tax);
-	fprintf(fp, "ÇÕ  °è%25d¿ø\n", price);
+	fprintf(fp, "ê³µê¸‰ê°€%25dì›\n", taxable);
+	fprintf(fp, "ë¶€ê°€ì„¸%25dì›\n", tax);
+	fprintf(fp, "í•©  ê³„%25dì›\n", price);
 
 	fclose(fp);
 }
